@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color-lightgrey: lightgrey;
+  --bg-color-white: white;
+  --button-color-blue: rgb(65, 65, 100);
+  --font-color-grey: rgb(142, 139, 139);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: var(--bg-color-lightgrey);
+}
+
+main {
+  color: var(--font-color-grey);
+}
+
+section,
+article {
+  margin-bottom: 20px;
+}
+
+.reply {
+  color: var(--button-color-blue);
+}
+
+.chat_wrapper {
+  width: 50%;
+  margin: 50px auto;
+}
+
+.chat_wrapper .chatbox,
+.chat_wrapper .reply_chatbox,
+.chat_wrapper .input_box {
+  background-color: var(--bg-color-white);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.main_article_box {
+  display: flex;
+  gap: 20px;
+}
+
+.main_article_box .evaluation_article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7.5px;
+  background-color: var(--bg-color-lightgrey);
+  border-radius: 5px;
+  height: 72.5px;
+}
+
+.main_article_box .article_body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.main_article_box .article_body .article_header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.main_article_box .article_body .article_header img:first-of-type {
+  height: 30px;
+  width: 30px;
+}
+
+.main_article_box .article_body .article_header p:first-of-type {
+  font-weight: 800;
+}
+
+.main_article_box .article_body .article_header img:last-of-type {
+  margin-left: auto;
+  padding-left: 5px;
+}
+
+/* REPLY CHAT BOX */
+.reply_content .reply_chatbox_section {
+  display: flex;
+  gap: 30px;
+}
+
+.reply_content .reply_chatbox_section:not(.reply_chatbox_section:first-of-type) {
+  margin-top: -20px;
+}
+
+.reply_content .reply_chatbox_section .reply_border {
+  width: 7%;
+  border-right: 1px solid rgb(185, 182, 182);
+}
+
+.reply_content .reply_chatbox_section .reply_chatbox {
+  width: 100%;
+}
+
+.chat_wrapper .input_box {
+  display: flex;
+  gap: 15px;
+}
+
+.chat_wrapper .input_box img {
+  height: 30px;
+  width: 30px;
+}
+
+.chat_wrapper .input_box textarea {
+  width: 100%;
+  padding: 5px;
+  resize: none;
+}
+
+.chat_wrapper .input_box button {
+  width: 15%;
+  height: 40px;
+  background-color: var(--button-color-blue);
+  color: var(--bg-color-white);
+  border: none;
+  border-radius: 5px;
+}
