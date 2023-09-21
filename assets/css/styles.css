@@ -89,21 +89,25 @@ article {
 }
 
 /* REPLY CHAT BOX */
-.reply_content .reply_chatbox_section {
+.reply_content .reply_chatbox_section,
+.reply_content .reply_input_box {
   display: flex;
   gap: 30px;
 }
 
-.reply_content .reply_chatbox_section:not(.reply_chatbox_section:first-of-type) {
+.reply_content .reply_chatbox_section:not(.reply_chatbox_section:first-of-type),
+.reply_content .reply_input_box {
   margin-top: -20px;
 }
 
-.reply_content .reply_chatbox_section .reply_border {
+.reply_content .reply_chatbox_section .reply_border,
+.reply_content .reply_input_box .reply_border {
   width: 7%;
   border-right: 1px solid rgb(185, 182, 182);
 }
 
-.reply_content .reply_chatbox_section .reply_chatbox {
+.reply_content .reply_chatbox_section .reply_chatbox,
+.reply_content .reply_input_box .input_box {
   width: 100%;
 }
 
