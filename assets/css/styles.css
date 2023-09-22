@@ -8,6 +8,7 @@
   --bg-color-lightgrey: lightgrey;
   --bg-color-white: white;
   --button-color-blue: rgb(65, 65, 100);
+  --button-color-hover: rgb(118, 118, 186);
   --font-color-grey: rgb(142, 139, 139);
 }
 
@@ -29,8 +30,14 @@ article {
   margin-bottom: 20px;
 }
 
-.reply {
+.reply,
+.reply_icon {
   color: var(--button-color-blue);
+  cursor: pointer;
+}
+
+.reply:hover {
+  color: var(--button-color-hover);
 }
 
 .chat_wrapper {
@@ -134,4 +141,9 @@ article {
   color: var(--bg-color-white);
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat_wrapper .input_box button:hover {
+  background-color: var(--button-color-hover);
 }
