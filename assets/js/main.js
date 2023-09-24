@@ -28,12 +28,12 @@ const contentSiteBuilder = async () => {
 
   // ContentBoxen erstellen!!
   data.contentData.forEach((c) => {
-    let output = new Output(c, wrapper);
+    let output = new Output(c, wrapper, currentUser);
     output.buildOutBoxes();
   });
 
   // Die Main ChatBox erstellen für den User
-  let output = new Output(null, inputWrapper); // Für die Userdaten brauchen wir die ContentDaten nicht daher null
+  let output = new Output(null, inputWrapper, currentUser.username); // Für die Userdaten brauchen wir die ContentDaten nicht daher null
   output.buildChatBox(data.currentUser);
 
   // return last main id key
@@ -76,7 +76,7 @@ const inputMain = () => {
   contentData = input.inputMainArticles(contentData);
 
   // output neuen content
-  let output = new Output(contentData[contentData.length - 1], wrapper);
+  let output = new Output(contentData[contentData.length - 1], wrapper, currentUser.username);
   output.buildOutBoxes();
 
   // clearn
@@ -126,7 +126,11 @@ const openReplyChatBox = (rb) => {
       ? parentReplyElement.querySelector('.reply_content')
       : parentReplyElement.closest('.reply_content');
 
-    let output = new Output(contentData[dataMainKey - 1], replyContentWrapper);
+    let output = new Output(
+      contentData[dataMainKey - 1],
+      replyContentWrapper,
+      currentUser.username
+    );
     output.buildOutNewReplies();
 
     // chat box entfernen

@@ -1,8 +1,9 @@
 class Output {
-  constructor(data, wrapper) {
+  constructor(data, wrapper, userSession) {
     this.data = data;
     this.wrapper = wrapper;
     this.helperClass = new Helper();
+    this.userSession = userSession;
   }
 
   buildOutBoxes() {
@@ -21,7 +22,11 @@ class Output {
               <img src="${this.data.user.image.png}" alt="avatar">
               <p>${this.data.user.username}</p>
               <p>${this.data.createdAt}</p>
-              <img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"><span class="reply" onclick="openReplyChatBox(this)">Reply</span>
+              ${
+                this.userSession !== this.data.user.username
+                  ? '<img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"></img><span class="reply" onclick="openReplyChatBox(this)">Reply</span>'
+                  : '<img src="./images/icon-delete.svg" alt="delete_icon" class="delete_icon"></img><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"></img>'
+              }
             </div>
             <div class="article_text">
               <p>${this.data.content}</p>
