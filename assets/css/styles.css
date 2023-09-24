@@ -40,14 +40,16 @@ article {
   color: var(--button-color-hover);
 }
 
-.chat_wrapper {
+.chat_wrapper,
+.input_wrapper {
   width: 50%;
   margin: 50px auto;
 }
 
 .chat_wrapper .chatbox,
 .chat_wrapper .reply_chatbox,
-.chat_wrapper .input_box {
+.input_wrapper .input_box,
+.chat_wrapper .reply_input_box {
   background-color: var(--bg-color-white);
   border-radius: 5px;
   padding: 10px;
@@ -73,6 +75,7 @@ article {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  width: 100%;
 }
 
 .main_article_box .article_body .article_header {
@@ -118,23 +121,31 @@ article {
   width: 100%;
 }
 
-.chat_wrapper .input_box {
+.reply_content .reply_input_box {
+  margin-bottom: 40px;
+}
+
+.input_wrapper .input_box,
+.chat_wrapper .reply_input_box {
   display: flex;
   gap: 15px;
 }
 
-.chat_wrapper .input_box img {
+.input_wrapper .input_box img,
+.chat_wrapper .reply_input_box img {
   height: 30px;
   width: 30px;
 }
 
-.chat_wrapper .input_box textarea {
+.input_wrapper .input_box textarea,
+.chat_wrapper .reply_input_box textarea {
   width: 100%;
   padding: 5px;
   resize: none;
 }
 
-.chat_wrapper .input_box button {
+.input_wrapper .input_box button,
+.chat_wrapper .reply_input_box button {
   width: 15%;
   height: 40px;
   background-color: var(--button-color-blue);
@@ -144,6 +155,7 @@ article {
   cursor: pointer;
 }
 
-.chat_wrapper .input_box button:hover {
+.input_wrapper .input_box button:hover,
+.chat_wrapper .reply_input_box button:hover {
   background-color: var(--button-color-hover);
 }

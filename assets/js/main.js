@@ -1,9 +1,11 @@
 /* CONTAINER */
 const wrapper = document.querySelector('.chat_wrapper');
+const inputWrapper = document.querySelector('.input_wrapper');
 
 /* DATA */
 let currentUser = {};
 let contentData = {};
+let lastMainKey, replyKey;
 
 /* FETCH DATA FUNCTION */
 const getDataFromJsonObject = async () => {
@@ -19,9 +21,7 @@ const getDataFromJsonObject = async () => {
   return { currentUser, contentData };
 };
 
-/* UI FUNCTIONS */
-const buildOutBoxes = (likes, avatar, userName, date, content) => {};
-
+// Baue Seite
 const contentSiteBuilder = async () => {
   // Get all Data from json Object
   let data = await getDataFromJsonObject();
@@ -33,9 +33,103 @@ const contentSiteBuilder = async () => {
   });
 
   // Die Main ChatBox erstellen für den User
-  let output = new Output(null, wrapper); // Für die Userdaten brauchen wir die ContentDaten nicht daher null
-  output.buildMainChatBox(data.currentUser);
+  let output = new Output(null, inputWrapper); // Für die Userdaten brauchen wir die ContentDaten nicht daher null
+  output.buildChatBox(data.currentUser);
+
+  // return last main id key
+  return data.contentData[data.contentData.length - 1].id;
 };
 
 // RUN
-contentSiteBuilder();
+const run = async () => {
+  // Warten bis Daten vorhanden inkl. lastkey und die Seite gebaut ist
+  lastMainKey = await contentSiteBuilder();
+  const sendButton = document.querySelector('.send');
+  const replyButton = document.querySelectorAll('.reply');
+  // let replyButtonArray = Array.from(replyButton);
+
+  /* EVENT LISTENER */
+  sendButton.addEventListener('click', inputMain);
+
+  // replyButtonArray.forEach((rb) =>
+  //   rb.addEventListener('click', (e) => {
+  //     openReplyChatBox(rb);
+  //   })
+  // );
+};
+
+run();
+
+/* FUNCTIONS */
+const inputMain = () => {
+  let contentVal = document.querySelector('#input_content').value;
+  if (contentVal == '') {
+    alert('Bitte geben Sie Ihren Text an!');
+    return;
+  }
+
+  // Id incrementen!
+  lastMainKey++;
+  // Datenbank / LocalStorage persistent machen INPUT
+  // ...
+  let input = new Input(lastMainKey, contentVal, currentUser.username, currentUser.image.png);
+  contentData = input.inputMainArticles(contentData);
+
+  // output neuen content
+  let output = new Output(contentData[contentData.length - 1], wrapper);
+  output.buildOutBoxes();
+
+  // clearn
+  contentVal = '';
+};
+
+const openReplyChatBox = (rb) => {
+  // checken ob es eine reply_input_box schon gibt
+  let replyBox = document.querySelector('.reply_input_box');
+  if (replyBox !== null) {
+    replyBox.remove();
+    return;
+  }
+
+  let parentReplyElement = rb.closest('.reply_chatbox_section'); // reply auf reply
+  if (parentReplyElement === null) {
+    parentReplyElement = rb.closest('.chatbox'); // reply auf main
+  }
+
+  // Wir holen uns die id des Articles das wir replien wollen
+  let dataMainKey = parentReplyElement.getAttribute('data_key')
+    ? parentReplyElement.getAttribute('data_key')
+    : parentReplyElement.getAttribute('data_main_key');
+
+  let replyTo = parentReplyElement.getAttribute('data_username');
+
+  let output = new Output(currentUser, parentReplyElement);
+  output.buildChatBox(currentUser);
+
+  const createReply = document.querySelector('.create_reply');
+
+  // EventListener
+  createReply.addEventListener('click', (e) => {
+    let replyBox = document.querySelector('.reply_input_box');
+    let replyVal = document.querySelector('#reply_content').value;
+
+    if (replyVal == '') {
+      alert('Bitte geben Sie einen Text ein!!');
+      return;
+    }
+
+    let input = new Input(dataMainKey, replyVal, currentUser.username, currentUser.image.png);
+    contentData = input.inputReplyArticle(contentData, replyTo);
+
+    // output neuen content
+    let replyContentWrapper = parentReplyElement.querySelector('.reply_content')
+      ? parentReplyElement.querySelector('.reply_content')
+      : parentReplyElement.closest('.reply_content');
+
+    let output = new Output(contentData[dataMainKey - 1], replyContentWrapper);
+    output.buildOutNewReplies();
+
+    // chat box entfernen
+    replyBox.remove();
+  });
+};
