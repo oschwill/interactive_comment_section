@@ -159,3 +159,7 @@ article {
 .chat_wrapper .reply_input_box button:hover {
   background-color: var(--button-color-hover);
 }
+
+.delete_icon {
+  margin-left: auto;
+}
