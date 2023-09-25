@@ -142,14 +142,16 @@ article {
 }
 
 .input_wrapper .input_box textarea,
-.chat_wrapper .reply_input_box textarea {
+.chat_wrapper .reply_input_box textarea,
+.article_text textarea {
   width: 100%;
   padding: 5px;
   resize: none;
 }
 
 .input_wrapper .input_box button,
-.chat_wrapper .reply_input_box button {
+.chat_wrapper .reply_input_box button,
+.article_text button {
   width: 15%;
   height: 40px;
   background-color: var(--button-color-blue);
@@ -160,7 +162,8 @@ article {
 }
 
 .input_wrapper .input_box button:hover,
-.chat_wrapper .reply_input_box button:hover {
+.chat_wrapper .reply_input_box button:hover,
+.article_text button:hover {
   background-color: var(--button-color-hover);
 }
 
@@ -175,4 +178,10 @@ article {
 
 .delete:hover {
   color: var(--button-color-hover-delete);
+}
+
+.create_update {
+  margin: 10px 0;
+  right: 0;
+  float: right;
 }

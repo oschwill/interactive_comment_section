@@ -145,7 +145,33 @@ class Output {
           this.wrapper
         );
   }
-}
-{
-  /* <div class="reply_border">&nbsp;</div>; */
+
+  createNewElement() {
+    let textArea = document.createElement('textarea');
+    textArea.setAttribute('name', 'edit_content');
+    textArea.setAttribute('id', 'edit_content');
+    textArea.setAttribute('cols', '50');
+    textArea.setAttribute('rows', '5');
+    textArea.innerText = this.data.content;
+
+    const node = this.wrapper.querySelector('.article_text > p');
+
+    if (node?.localName == 'p' && node !== null) {
+      node.replaceWith(textArea);
+
+      this.helperClass.insertAfter(
+        document.createRange().createContextualFragment(
+          `
+            <button class="create_update" onclick="updateArticle(${this.data.id}, ${this.data.replId})">Update</button>
+          `
+        ),
+        textArea
+      );
+    } else {
+      const node = this.wrapper?.querySelector('.article_text');
+      node.innerHTML = `
+      <p>${this.data.content}</p>
+      `;
+    }
+  }
 }

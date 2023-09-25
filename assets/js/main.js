@@ -6,6 +6,7 @@ const inputWrapper = document.querySelector('.input_wrapper');
 let currentUser = {};
 let contentData = {};
 let lastMainKey, replyKey;
+let hasUpdate = false;
 
 /* FETCH DATA FUNCTION */
 const getDataFromJsonObject = async () => {
@@ -184,4 +185,27 @@ deleteContent = async (button, id, replId) => {
   });
 };
 
-const editContent = (button, id, content, replId = null) => {};
+const editContent = (button, id, content, replId = null) => {
+  let contentNode = button.closest('.article_body');
+
+  let output = new Output({ id, replId, content }, contentNode, currentUser.username);
+  output.createNewElement();
+};
+
+const updateArticle = (id, replId) => {
+  const updatedContent = document.querySelector('#edit_content').value;
+
+  if (replId === null) {
+    contentData.find((obj) => obj.id === id).content = updatedContent;
+  } else {
+    contentData.find((obj) => obj.id === id).replies.find((obj) => obj.id === replId).content =
+      updatedContent;
+  }
+
+  wrapper.innerHTML = ''; // clearn alles
+  // ContentBoxen erstellen!!
+  contentData.forEach((c) => {
+    let output = new Output(c, wrapper, currentUser.username);
+    output.buildOutBoxes();
+  });
+};
