@@ -135,36 +135,51 @@ const openReplyChatBox = (rb) => {
 };
 
 deleteContent = async (button, id, replId) => {
-  if (button.getAttribute('content_type') == 'main') {
-    console.log('incomingid', id);
-    contentData = contentData.filter((val) => val.id !== id);
-    console.log(contentData);
-  } else if (button.getAttribute('content_type') == 'reply') {
-    contentData = contentData.map((val) => {
-      if (val.id == id) {
-        return {
-          id: val.id,
-          content: val.content,
-          createdAt: val.createdAt,
-          score: val.score,
-          user: {
-            image: {
-              png: val.user.image.png,
-              webp: val.user.image.webp,
-            },
-            username: val.user.username,
-          },
-          replies: val.replies.filter((val) => val.id !== replId),
-        };
+  // Abfrage wirklich Delete?
+  swal({
+    title: 'Delete comment',
+    text: 'Are you sure you want to delete this comment? This will remove the comment and cant be undone',
+    icon: '',
+    buttons: {
+      cancel: 'NO CANCEL',
+      YES: 'YES DELETE',
+    },
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      if (button.getAttribute('content_type') == 'main') {
+        contentData = contentData.filter((val) => val.id !== id);
+      } else if (button.getAttribute('content_type') == 'reply') {
+        contentData = contentData.map((val) => {
+          if (val.id == id) {
+            return {
+              id: val.id,
+              content: val.content,
+              createdAt: val.createdAt,
+              score: val.score,
+              user: {
+                image: {
+                  png: val.user.image.png,
+                  webp: val.user.image.webp,
+                },
+                username: val.user.username,
+              },
+              replies: val.replies.filter((val) => val.id !== replId),
+            };
+          }
+          return val;
+        });
       }
-      return val;
-    });
-  }
 
-  wrapper.innerHTML = ''; // clearn alles
-  // ContentBoxen erstellen!!
-  contentData.forEach((c) => {
-    let output = new Output(c, wrapper, currentUser.username);
-    output.buildOutBoxes();
+      wrapper.innerHTML = ''; // clearn alles
+      // ContentBoxen erstellen!!
+      contentData.forEach((c) => {
+        let output = new Output(c, wrapper, currentUser.username);
+        output.buildOutBoxes();
+      });
+      swal('Your content has been deleted!', {
+        icon: 'success',
+      });
+    }
   });
 };
