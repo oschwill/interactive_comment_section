@@ -183,3 +183,5 @@ deleteContent = async (button, id, replId) => {
     }
   });
 };
+
+const editContent = (button, id, content, replId = null) => {};

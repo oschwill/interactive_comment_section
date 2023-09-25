@@ -52,4 +52,8 @@ class Input {
 
     return returnNewData;
   }
+
+  editArticle() {
+    console.log('Dies ist ein Test');
+  }
 }

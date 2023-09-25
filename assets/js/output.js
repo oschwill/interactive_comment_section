@@ -29,8 +29,10 @@ class Output {
                     this.data.id +
                     ', ' +
                     null +
-                    ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" onclick="editContent(' +
-                    this.data.content +
+                    ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" content_type="main" onclick="editContent(this,' +
+                    this.data.id +
+                    ', ' +
+                    `'${this.data.content}'` +
                     ')">Edit</span>'
               }
             </div>
@@ -79,8 +81,12 @@ class Output {
                             mainDataKey +
                             ', ' +
                             r.id +
-                            ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" onclick="editContent(' +
-                            this.data.content +
+                            ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" content_type="reply" onclick="editContent(this,' +
+                            mainDataKey +
+                            ', ' +
+                            `'${r.content}'` +
+                            ', ' +
+                            r.id +
                             ')">Edit</span>'
                       }
                     </div>
