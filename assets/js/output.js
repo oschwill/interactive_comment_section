@@ -27,6 +27,8 @@ class Output {
                   ? '<img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"><span class="reply" onclick="openReplyChatBox(this)">Reply</span>'
                   : '<img src="./images/icon-delete.svg" alt="delete_icon" class="delete_icon" ><span class="delete" content_type="main" onclick="deleteContent(this,' +
                     this.data.id +
+                    ', ' +
+                    null +
                     ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" onclick="editContent(' +
                     this.data.content +
                     ')">Edit</span>'
@@ -64,7 +66,9 @@ class Output {
     return replies
       .map((r) => {
         return `        
-            <section class="reply_chatbox_section" data_main_key=${mainDataKey} data_reply_key="${r.id}" data_username="${r.user.username}">
+            <section class="reply_chatbox_section" data_main_key=${mainDataKey} data_reply_key="${
+          r.id
+        }" data_username="${r.user.username}">
               <div class="reply_border">&nbsp;</div>
               <section class="reply_chatbox">
                 <article class="main_article_box">
@@ -77,8 +81,18 @@ class Output {
                     <div class="article_header">
                       <img src="${r.user.image.png}" alt="avatar">
                       <p>${r.user.username}</p>
-                      <p>${r.createdAt}</p>
-                      <img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"><span class="reply" onclick="openReplyChatBox(this)">Reply</span>
+                      <p>${r.createdAt}</p>                      
+                      ${
+                        this.userSession !== r.user.username
+                          ? '<img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"><span class="reply" onclick="openReplyChatBox(this)">Reply</span>'
+                          : '<img src="./images/icon-delete.svg" alt="delete_icon" class="delete_icon" ><span class="delete" content_type="reply" onclick="deleteContent(this,' +
+                            mainDataKey +
+                            ', ' +
+                            r.id +
+                            ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" onclick="editContent(' +
+                            this.data.content +
+                            ')">Edit</span>'
+                      }
                     </div>
                     <div class="article_text">
                       <p>${r.content}</p>

@@ -131,7 +131,7 @@ const openReplyChatBox = (rb) => {
   });
 };
 
-deleteContent = async (button, id) => {
+deleteContent = async (button, id, replId) => {
   console.log(button);
   console.log(button.getAttribute('content_type'));
   console.log(id);
@@ -140,7 +140,6 @@ deleteContent = async (button, id) => {
     contentData = contentData.filter((val) => val.id !== id);
     console.log(contentData);
     wrapper.innerHTML = ''; // clearn alles
-    // alles neu bauen
     // ContentBoxen erstellen!!
     contentData.forEach((c) => {
       let output = new Output(c, wrapper, currentUser.username);
