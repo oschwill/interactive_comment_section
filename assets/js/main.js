@@ -68,9 +68,12 @@ const inputMain = () => {
   let input = new Input(lastMainKey, contentVal, currentUser.username, currentUser.image.png);
   contentData = input.inputMainArticles(contentData);
 
-  // output neuen content
-  let output = new Output(contentData[contentData.length - 1], wrapper, currentUser.username);
-  output.buildOutBoxes();
+  wrapper.innerHTML = ''; // clearn alles
+  // ContentBoxen erstellen!!
+  contentData.forEach((c) => {
+    let output = new Output(c, wrapper, currentUser.username);
+    output.buildOutBoxes();
+  });
 
   // clearn
   document.querySelector('#input_content').value = '';
@@ -119,12 +122,12 @@ const openReplyChatBox = (rb) => {
       ? parentReplyElement.querySelector('.reply_content')
       : parentReplyElement.closest('.reply_content');
 
-    let output = new Output(
-      contentData[dataMainKey - 1],
-      replyContentWrapper,
-      currentUser.username
-    );
-    output.buildOutNewReplies();
+    wrapper.innerHTML = ''; // clearn alles
+    // ContentBoxen erstellen!!
+    contentData.forEach((c) => {
+      let output = new Output(c, wrapper, currentUser.username);
+      output.buildOutBoxes();
+    });
 
     // chat box entfernen
     replyBox.remove();
@@ -132,18 +135,36 @@ const openReplyChatBox = (rb) => {
 };
 
 deleteContent = async (button, id, replId) => {
-  console.log(button);
-  console.log(button.getAttribute('content_type'));
-  console.log(id);
-
   if (button.getAttribute('content_type') == 'main') {
+    console.log('incomingid', id);
     contentData = contentData.filter((val) => val.id !== id);
     console.log(contentData);
-    wrapper.innerHTML = ''; // clearn alles
-    // ContentBoxen erstellen!!
-    contentData.forEach((c) => {
-      let output = new Output(c, wrapper, currentUser.username);
-      output.buildOutBoxes();
+  } else if (button.getAttribute('content_type') == 'reply') {
+    contentData = contentData.map((val) => {
+      if (val.id == id) {
+        return {
+          id: val.id,
+          content: val.content,
+          createdAt: val.createdAt,
+          score: val.score,
+          user: {
+            image: {
+              png: val.user.image.png,
+              webp: val.user.image.webp,
+            },
+            username: val.user.username,
+          },
+          replies: val.replies.filter((val) => val.id !== replId),
+        };
+      }
+      return val;
     });
   }
+
+  wrapper.innerHTML = ''; // clearn alles
+  // ContentBoxen erstellen!!
+  contentData.forEach((c) => {
+    let output = new Output(c, wrapper, currentUser.username);
+    output.buildOutBoxes();
+  });
 };

@@ -51,16 +51,6 @@ class Output {
     );
   }
 
-  buildOutNewReplies() {
-    // Vorher allte Replies entfernen
-    this.wrapper.innerHTML = '';
-
-    this.wrapper.insertAdjacentHTML(
-      'beforeend',
-      this.#buildReplyBoxes(this.data.replies, this.data.id)
-    );
-  }
-
   // Private
   #buildReplyBoxes(replies, mainDataKey) {
     return replies
