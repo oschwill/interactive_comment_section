@@ -9,7 +9,9 @@
   --bg-color-white: white;
   --button-color-blue: rgb(65, 65, 100);
   --button-color-hover: rgb(118, 118, 186);
+  --button-color-hover-delete: rgb(201, 125, 125);
   --font-color-grey: rgb(142, 139, 139);
+  --font-color-red: rgb(215, 0, 0);
 }
 
 html {
@@ -31,12 +33,14 @@ article {
 }
 
 .reply,
-.reply_icon {
+.reply_icon,
+.edit {
   color: var(--button-color-blue);
   cursor: pointer;
 }
 
-.reply:hover {
+.reply:hover,
+.edit:hover {
   color: var(--button-color-hover);
 }
 
@@ -162,4 +166,13 @@ article {
 
 .delete_icon {
   margin-left: auto;
+}
+
+.delete {
+  color: var(--font-color-red);
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: var(--button-color-hover-delete);
 }

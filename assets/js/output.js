@@ -25,7 +25,11 @@ class Output {
               ${
                 this.userSession !== this.data.user.username
                   ? '<img src="./images/icon-reply.svg" alt="reply_icon" class="reply_icon"><span class="reply" onclick="openReplyChatBox(this)">Reply</span>'
-                  : '<img src="./images/icon-delete.svg" alt="delete_icon" class="delete_icon" ><span class="delete">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit">Edit</span>'
+                  : '<img src="./images/icon-delete.svg" alt="delete_icon" class="delete_icon" ><span class="delete" content_type="main" onclick="deleteContent(this,' +
+                    this.data.id +
+                    ')">Delete</span><img src="./images/icon-edit.svg" alt="edit_icon" class="edit_icon"><span class="edit" onclick="editContent(' +
+                    this.data.content +
+                    ')">Edit</span>'
               }
             </div>
             <div class="article_text">
@@ -89,7 +93,6 @@ class Output {
   }
 
   buildChatBox(userdata) {
-    console.log(this.wrapper);
     this.wrapper.getAttribute('class') == 'input_wrapper'
       ? this.wrapper.insertAdjacentHTML(
           'beforeend',

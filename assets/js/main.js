@@ -28,7 +28,7 @@ const contentSiteBuilder = async () => {
 
   // ContentBoxen erstellen!!
   data.contentData.forEach((c) => {
-    let output = new Output(c, wrapper, currentUser);
+    let output = new Output(c, wrapper, currentUser.username);
     output.buildOutBoxes();
   });
 
@@ -46,16 +46,9 @@ const run = async () => {
   lastMainKey = await contentSiteBuilder();
   const sendButton = document.querySelector('.send');
   const replyButton = document.querySelectorAll('.reply');
-  // let replyButtonArray = Array.from(replyButton);
 
   /* EVENT LISTENER */
   sendButton.addEventListener('click', inputMain);
-
-  // replyButtonArray.forEach((rb) =>
-  //   rb.addEventListener('click', (e) => {
-  //     openReplyChatBox(rb);
-  //   })
-  // );
 };
 
 run();
@@ -80,7 +73,7 @@ const inputMain = () => {
   output.buildOutBoxes();
 
   // clearn
-  contentVal = '';
+  document.querySelector('#input_content').value = '';
 };
 
 const openReplyChatBox = (rb) => {
@@ -136,4 +129,22 @@ const openReplyChatBox = (rb) => {
     // chat box entfernen
     replyBox.remove();
   });
+};
+
+deleteContent = async (button, id) => {
+  console.log(button);
+  console.log(button.getAttribute('content_type'));
+  console.log(id);
+
+  if (button.getAttribute('content_type') == 'main') {
+    contentData = contentData.filter((val) => val.id !== id);
+    console.log(contentData);
+    wrapper.innerHTML = ''; // clearn alles
+    // alles neu bauen
+    // ContentBoxen erstellen!!
+    contentData.forEach((c) => {
+      let output = new Output(c, wrapper, currentUser.username);
+      output.buildOutBoxes();
+    });
+  }
 };
