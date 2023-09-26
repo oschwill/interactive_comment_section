@@ -185,3 +185,52 @@ article {
   right: 0;
   float: right;
 }
+
+@media (max-width: 940px) {
+  .main_article_box .article_body .article_header {
+    gap: 0;
+  }
+
+  .article_text .create_update {
+    width: 30%;
+  }
+}
+
+@media (max-width: 800px) {
+  .main_article_box .article_body .article_header {
+    flex-direction: column;
+  }
+
+  .main_article_box .article_body .article_header img:last-of-type,
+  .delete_icon {
+    margin: 0;
+  }
+  .input_wrapper .input_box,
+  .chat_wrapper .reply_input_box {
+    display: block;
+  }
+
+  .reply_content .reply_input_box .reply_border {
+    width: auto;
+  }
+
+  .input_wrapper .input_box button,
+  .chat_wrapper .reply_input_box button,
+  .article_text button {
+    width: 50%;
+  }
+
+  .article_text .create_update {
+    width: 50%;
+  }
+
+  .reply_content .reply_chatbox_section,
+  .reply_content .reply_input_box {
+    gap: 0;
+  }
+
+  section,
+  article {
+    margin-bottom: 10px;
+  }
+}

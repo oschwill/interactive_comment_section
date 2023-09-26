@@ -7,16 +7,24 @@ let currentUser = {};
 let contentData = {};
 let lastMainKey, replyKey;
 let hasUpdate = false;
+let storage = new Storage(window.localStorage);
 
 /* FETCH DATA FUNCTION */
 const getDataFromJsonObject = async () => {
+  // standardmäß9g fetchen wir immer die json Datei und holen uns zumindest die user Session
   await fetch('./data.json')
     .then((response) => response.json())
     .then((json) => {
       currentUser = {
         ...json.currentUser,
       };
-      contentData = [...json.comments];
+      // wenn wir keinen storage haben holen wir uns die Daten aus der Json datei
+      if (storage.getData() === null) {
+        contentData = [...json.comments];
+        storage.insertData(contentData);
+      } else {
+        contentData = storage.getData();
+      }
     });
 
   return { currentUser, contentData };
@@ -57,6 +65,7 @@ run();
 /* FUNCTIONS */
 const inputMain = () => {
   let contentVal = document.querySelector('#input_content').value;
+
   if (contentVal == '') {
     alert('Bitte geben Sie Ihren Text an!');
     return;
@@ -64,10 +73,12 @@ const inputMain = () => {
 
   // Id incrementen!
   lastMainKey++;
-  // Datenbank / LocalStorage persistent machen INPUT
-  // ...
+
   let input = new Input(lastMainKey, contentVal, currentUser.username, currentUser.image.png);
   contentData = input.inputMainArticles(contentData);
+
+  // Persistenz
+  storage.insertData(contentData);
 
   wrapper.innerHTML = ''; // clearn alles
   // ContentBoxen erstellen!!
@@ -117,6 +128,9 @@ const openReplyChatBox = (rb) => {
 
     let input = new Input(dataMainKey, replyVal, currentUser.username, currentUser.image.png);
     contentData = input.inputReplyArticle(contentData, replyTo);
+
+    // Persistenz
+    storage.insertData(contentData);
 
     // output neuen content
     let replyContentWrapper = parentReplyElement.querySelector('.reply_content')
@@ -172,12 +186,16 @@ deleteContent = async (button, id, replId) => {
         });
       }
 
+      // Persistenz
+      storage.insertData(contentData);
+
       wrapper.innerHTML = ''; // clearn alles
       // ContentBoxen erstellen!!
       contentData.forEach((c) => {
         let output = new Output(c, wrapper, currentUser.username);
         output.buildOutBoxes();
       });
+
       swal('Your content has been deleted!', {
         icon: 'success',
       });
@@ -201,6 +219,9 @@ const updateArticle = (id, replId) => {
     contentData.find((obj) => obj.id === id).replies.find((obj) => obj.id === replId).content =
       updatedContent;
   }
+
+  // Persistenz
+  storage.insertData(contentData);
 
   wrapper.innerHTML = ''; // clearn alles
   // ContentBoxen erstellen!!

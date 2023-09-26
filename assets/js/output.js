@@ -120,7 +120,7 @@ class Output {
             `
             <section class="reply_input_box">     
               <img src="${userdata.image.png}" alt="avatar">
-              <textarea name="reply_content" id="reply_content" cols="50" rows="5" placeholder="Add a comment..." >@${this.wrapper.getAttribute(
+              <textarea name="reply_content" id="reply_content" cols="50" rows="5" placeholder="Add a comment..." autofocus>@${this.wrapper.getAttribute(
                 'data_username'
               )}</textarea>
               <button class="create_reply">Reply</button>
@@ -135,7 +135,7 @@ class Output {
             <section class="reply_input_box">  
               <div class="reply_border">&nbsp;</div>   
               <img src="${userdata.image.png}" alt="avatar">
-              <textarea name="reply_content" id="reply_content" cols="50" rows="5" placeholder="Add a comment..." >@${this.wrapper.getAttribute(
+              <textarea name="reply_content" id="reply_content" cols="50" rows="5" placeholder="Add a comment..." autofocus>@${this.wrapper.getAttribute(
                 'data_username'
               )}</textarea>
               <button class="create_reply">Reply</button>
@@ -152,6 +152,7 @@ class Output {
     textArea.setAttribute('id', 'edit_content');
     textArea.setAttribute('cols', '50');
     textArea.setAttribute('rows', '5');
+    textArea.setAttribute('autofocus', true);
     textArea.innerText = this.data.content;
 
     const node = this.wrapper.querySelector('.article_text > p');
