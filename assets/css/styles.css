@@ -194,6 +194,11 @@ article {
   .article_text .create_update {
     width: 30%;
   }
+
+  .chat_wrapper,
+  .input_wrapper {
+    width: 75%;
+  }
 }
 
 @media (max-width: 800px) {
