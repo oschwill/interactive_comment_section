@@ -12,7 +12,7 @@ class Input {
       {
         id: this.id,
         content: this.content,
-        createdAt: new Date().toUTCString(),
+        createdAt: new Date().toLocaleDateString(),
         score: 0,
         user: {
           image: {
@@ -34,7 +34,7 @@ class Input {
         val.replies.push({
           id: replyKey,
           content: this.content,
-          createdAt: new Date().toUTCString(),
+          createdAt: new Date().toLocaleDateString(),
           score: 0,
           replyingTo: replyTo,
           user: {
