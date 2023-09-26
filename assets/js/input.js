@@ -4,6 +4,7 @@ class Input {
     this.content = content;
     this.username = username;
     this.avatar = avatar;
+    this.date = new Date().toLocaleDateString();
   }
 
   inputMainArticles(contentData) {
@@ -12,7 +13,7 @@ class Input {
       {
         id: this.id,
         content: this.content,
-        createdAt: new Date().toLocaleDateString(),
+        createdAt: this.date,
         score: 0,
         user: {
           image: {
@@ -34,7 +35,7 @@ class Input {
         val.replies.push({
           id: replyKey,
           content: this.content,
-          createdAt: new Date().toLocaleDateString(),
+          createdAt: this.date,
           score: 0,
           replyingTo: replyTo,
           user: {
